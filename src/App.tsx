@@ -1,14 +1,11 @@
 import Search from './pages/Search.tsx'
 
-function App() {
-
+export default function App() {
     return (
         <>
-        <div>
-            <Search/>
-        </div>
+            <div>
+                <Search />
+            </div>
         </>
     )
 }
-
-export default App
