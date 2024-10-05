@@ -1,6 +1,7 @@
 {
     "building": [
         {
+            "facilityId": "FI1",
             "width": 80,
             "height": 60,
             "x": 10,

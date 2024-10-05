@@ -49,6 +49,7 @@ export default function Map(props: CanvasSize) {
                     {floorplan.building.map((section) => {
                         return (
                             <Rect
+                                key={section.facilityId}
                                 width={(section.width / 100) * getWidth()}
                                 height={(section.height / 100) * getHeight()}
                                 x={(section.x / 100) * getWidth()}
@@ -76,6 +77,7 @@ export default function Map(props: CanvasSize) {
                         return (
                             <>
                                 <Rect
+                                    key={room.roomId + "R"}
                                     width={(room.width / 100) * getWidth()}
                                     height={(room.height / 100) * getHeight()}
                                     x={(room.x / 100) * getWidth()}
@@ -83,6 +85,7 @@ export default function Map(props: CanvasSize) {
                                     fill={color}
                                 />
                                 <Text
+                                    key={room.roomId + "T"}
                                     text={room.roomName + ' ' + status}
                                     x={(room.x / 100) * getWidth()}
                                     y={(room.y / 100) * getHeight()}

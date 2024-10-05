@@ -13,14 +13,14 @@
 }
 
 .dropDown {
-    background-color: #87abe6;
+    background-color: #7d7d7d;
     padding-left: 2vw;
 }
 
 .roomHeader {
     font-size: larger;
     font-weight: bold;
-    background-color: #968e00;
+    background-color: #87abe6;
     padding-top: 1vh;
     padding-bottom: 1vh;
 }
