@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './Search.css'
-import Map from '../components/search/Map.tsx'
-import Room from '../components/search/Room.tsx'
-import roomsJson from '../assets/roomLists/roomList1.json'
+import Map from '../../components/search/Map.tsx'
+import Room from '../../components/search/Room.tsx'
+import roomsJson from '../../assets/roomLists/roomList1.json'
 
 export type roomList = {
     name: string, id: string, seats: number, projector: boolean, whiteboard: boolean, audio: boolean, video: boolean, reserved: string, occupied: string
