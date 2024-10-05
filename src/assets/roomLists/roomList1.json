@@ -1,0 +1,10 @@
+{
+    "rooms":[
+        {
+            "name":"Room1", "id":"ID1", "seats":63, "projector":true, "whiteboard":false, "audio":true, "video":false, "reserved":false, "occupied":true
+        },
+        {
+            "name":"Room2", "id":"ID2", "seats":59, "projector":false, "whiteboard":true, "audio":true, "video":false, "reserved":true, "occupied":true
+        }
+    ]
+}

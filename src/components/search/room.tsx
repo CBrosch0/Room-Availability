@@ -1,50 +1,14 @@
 import { useState } from 'react'
+import type { roomList } from "../../pages/Search.tsx"
 
-export default function Room() {
-    const [id, setId] = useState("Id")
-    const [name, setName] = useState("Room name")
-    const [seats, setSeats] = useState(15)
-    const [projector, setProjector] = useState(true)
-    const [whiteboard, setWhiteboard] = useState(true)
-    const [audio, setAudio] = useState(false)
-    const [video, setVideo] = useState(false)
-    const [occupied, setOccupied] = useState(true)
-    const [reserved, setReserved] = useState(false)
+export default function Room(room: roomList) {
 
     const [droppedDown, setDroppedDown] = useState(true)
 
-    function getId() {
-        return id;
-    }
-
-    function getName() {
-        return name;
-    }
-
-    function getSeats() {
-        return seats;
-    }
-
-    function getProjector() {
-        return projector;
-    }
-
-    function getWhiteboard() {
-        return whiteboard;
-    }
-
-    function getAudio() {
-        return audio;
-    }
-
-    function getVideo() {
-        return video;
-    }
-
     function getStatus() {
-        if (reserved && !occupied) {
+        if (room.reserved && !room.occupied) {
             return (<p>Available</p>)
-        } else if (!reserved) {
+        } else if (!room.reserved) {
             return (<p>Reserved</p>)
         } else {
             return (<p>Busy</p>)
@@ -55,18 +19,24 @@ export default function Room() {
         return droppedDown;
     }
 
+    function swapDropDown() {
+        setDroppedDown(!droppedDown)
+    }
+
 
     function getDropdown() {
         if (getDroppedDown()) {
             return (
                 <>
-                    <div>
-                        <p>Seats: {getSeats()}</p>
-                        {getProjector() ? <p>Projector</p> : <></>}
-                        {getWhiteboard() ? <p>Whiteboard</p> : <></>}
-                        {getAudio() ? <p>Audio</p> : <></>}
-                        {getVideo() ? <p>Video</p> : <></>}
+                    <div> 
+                        <br />
+                        <p>Seats: {room.seats}</p>
+                        {room.projector ? <p>Projector</p> : <></>}
+                        {room.whiteboard ? <p>Whiteboard</p> : <></>}
+                        {room.audio ? <p>Audio</p> : <></>}
+                        {room.video ? <p>Video</p> : <></>}
                         {getStatus()}
+                        <br />
                     </div>
                 </>
             )
@@ -77,9 +47,10 @@ export default function Room() {
 
     return (
         <>
-            <h1>{getName() + " " + getId()}</h1>
-            <br />
-            {getDropdown()}
+            <h1 onClick={swapDropDown}>{room.name + " " + room.id}</h1>
+            <div className="dropDown">
+                {getDropdown()}
+            </div>
         </>
     )
 }

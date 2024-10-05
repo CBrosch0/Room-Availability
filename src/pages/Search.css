@@ -13,7 +13,15 @@
     padding-right:5%;
   }
 
+  .dropDown {
+    background-color: coral;
+    padding-left: 2vw;
+  }
+
   h1 {
     font-size: larger;
     font-weight: bold;
+    background-color: blueviolet;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
   }
