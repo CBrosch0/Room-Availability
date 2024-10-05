@@ -11,6 +11,9 @@ type CanvasSize = {
 export default function Map(props: CanvasSize) {
     const [width, setWidth] = useState(props.w)
     const [height, setHeight] = useState(props.w * (6 / 10))
+    const [reservedColor, setReservedColor] = useState("#bf0000")
+    const [busyColor, setBusyColor] = useState("#bf8600")
+    const [availableColor, setAvailableColor] = useState("#36bf00")
 
 
     function getWidth() {
@@ -19,6 +22,18 @@ export default function Map(props: CanvasSize) {
 
     function getHeight() {
         return height;
+    }
+
+    function getReservedColor() {
+        return reservedColor;
+    }
+
+    function getBusyColor() {
+        return busyColor;
+    }
+
+    function getAvailableColor() {
+        return availableColor;
     }
 
     return (
@@ -39,11 +54,23 @@ export default function Map(props: CanvasSize) {
                 <Layer name="rooms">
                     {
                         floorplan.rooms.map((room) => {
+                            let color = "#000000"
+                            let status = "unknown"
+                            if(room.isAvailable && !room.isOccupied){
+                                color = getAvailableColor();
+                                status = "Available";
+                            }else if(!room.isAvailable){
+                                color = getReservedColor();
+                                status = "Reserved";
+                            }else{
+                                color = getBusyColor();
+                                status = "Busy";
+                            }
 
                             return (
                                 <>
-                                    <Rect width={room.width / 100 * getWidth()} height={room.height / 100 * getHeight()} x={room.x / 100 * getWidth()} y={room.y / 100 * getHeight()} fill="#2a7a1d" />
-                                    <Text text={room.roomName} x={room.x / 100 * getWidth()} y={room.y / 100 * getHeight()} fill="#black" />
+                                    <Rect width={room.width / 100 * getWidth()} height={room.height / 100 * getHeight()} x={room.x / 100 * getWidth()} y={room.y / 100 * getHeight()} fill={color} />
+                                    <Text text={room.roomName + " " + status} x={room.x / 100 * getWidth()} y={room.y / 100 * getHeight()} fill="#black" />
                                 </>
                             )
                         }
