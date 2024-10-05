@@ -5,33 +5,133 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/joho/godotenv"
 )
 
-func setupRouter() *gin.Engine {
+func isRoomAvailable(roomId primitive.ObjectID, dbc *mongo.Client) (bool, error) {
+	reservations := dbc.Database("demo").Collection("reservations")
+	filter := bson.D{{"$and", bson.A{
+		bson.D{{"roomId", roomId}},
+		bson.D{{"start", bson.D{{"$lte", time.Now().UTC()}}}},
+		bson.D{{"end", bson.D{{"$gte", time.Now().UTC()}}}},
+	}}}
+
+	if cursor, err := reservations.Find(context.TODO(), filter); err != nil {
+		return false, err
+	} else {
+		var results []ReservationDocument
+		if err = cursor.All(context.TODO(), &results); err != nil {
+			return false, err
+		} else {
+			if len(results) != 0 {
+				return true, nil
+			} else {
+				return false, nil
+			}
+		}
+	}
+}
+
+func setupRouter(dbc *mongo.Client) *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
 
 	// Ping test
 	r.GET("/ping", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, Room{123, "ENG2 105", true, 25, true, true, false, true, true})
+		// Send a ping to confirm a successful connection
+		if err := dbc.Database("admin").RunCommand(context.TODO(), bson.D{{Key: "ping", Value: 1}}).Err(); err != nil {
+			ctx.JSON(http.StatusInternalServerError, ErrorResponse{"DB connection failed"})
+		} else {
+			ctx.Status(http.StatusOK)
+		}
 	})
 
-	// Get user value
+	// Search
 	r.GET("/search", func(ctx *gin.Context) {
 		var request SearchRequestPayload
-		if err := ctx.ShouldBindJSON(&request); err != nil {
+		if err := ctx.BindJSON(&request); err != nil {
 			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid JSON"})
 		} else {
 			ctx.JSON(http.StatusOK, request)
+		}
+	})
+
+	// Room layout
+	r.GET("/layout", func(ctx *gin.Context) {
+		var request LayoutRequestPayload
+		if err := ctx.BindJSON(&request); err != nil {
+			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid JSON"})
+		} else {
+			if request.FacilityId == "" {
+				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Empty or missing layoutId"})
+			} else {
+				buildings := dbc.Database("demo").Collection("buildings")
+				filter := bson.D{{"facilityId", request.FacilityId}}
+				if cursor, err := buildings.Find(context.TODO(), filter); err != nil {
+					ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error searching building DB"})
+				} else {
+					var buildingDocuments []BuildingDocument
+					if err = cursor.All(context.TODO(), &buildingDocuments); err != nil {
+						ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error collecting building search results"})
+					} else {
+						rooms := dbc.Database("demo").Collection("rooms")
+						filter := bson.D{{"facilityId", request.FacilityId}}
+						if cursor, err := rooms.Find(context.TODO(), filter); err != nil {
+							ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error searching room DB"})
+						} else {
+							var roomDocuments []RoomDocument
+							if err = cursor.All(context.TODO(), &roomDocuments); err != nil {
+								ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error collecting room search results"})
+							} else {
+								buildingsResponse := make([]Building, len(buildingDocuments))
+								for i := range buildingsResponse {
+									buildingDoc := buildingDocuments[i]
+									buildingsResponse[i] = Building{
+										Id:     buildingDoc.Id.Hex(),
+										Width:  buildingDoc.Width,
+										Height: buildingDoc.Height,
+										X:      buildingDoc.X,
+										Y:      buildingDoc.Y,
+									}
+								}
+								roomsResponse := make([]Room, len(roomDocuments))
+								for i := range roomsResponse {
+									roomDoc := roomDocuments[i]
+
+									if isAvailable, err := isRoomAvailable(roomDoc.Id, dbc); err != nil {
+										ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error checking room availability"})
+										break
+									} else {
+										timeSinceActivity := time.Since(roomDoc.LastActivity)
+										isOccupied := timeSinceActivity.Minutes() < 5
+
+										roomsResponse[i] = Room{
+											Id:          roomDoc.Id.Hex(),
+											Name:        roomDoc.Name,
+											IsAvailable: isAvailable,
+											IsOccupied:  isOccupied,
+											Width:       roomDoc.Width,
+											Height:      roomDoc.Height,
+											X:           roomDoc.X,
+											Y:           roomDoc.Y,
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	})
 
@@ -70,7 +170,7 @@ func main() {
 	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
 
 	// Gin setup
-	r := setupRouter()
+	r := setupRouter(client)
 
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
