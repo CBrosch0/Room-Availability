@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { roomList } from '../../pages/Search.tsx'
+import '../../assets/styles/search.css'
 
 export default function Room(room: roomList) {
     const [droppedDown, setDroppedDown] = useState(true)
@@ -22,6 +23,22 @@ export default function Room(room: roomList) {
         setDroppedDown(!droppedDown)
     }
 
+    function roomReserveArea() {
+        return (
+            <>
+                <p>Time1</p>
+                <p>Time2</p>
+                <button onSubmit={reserveRoom}>Submit</button>
+            </>
+        )
+    }
+
+    function reserveRoom() {
+
+    }
+
+
+
     function getDropdown() {
         if (getDroppedDown()) {
             return (
@@ -35,6 +52,9 @@ export default function Room(room: roomList) {
                         {room.video ? <p>Video</p> : <></>}
                         {getStatus()}
                         <br />
+                        {roomReserveArea()}
+                        <br />
+                        <br />
                     </div>
                 </>
             )
@@ -45,7 +65,7 @@ export default function Room(room: roomList) {
 
     return (
         <>
-            <h1 onClick={swapDropDown}>{room.name + ' ' + room.id}</h1>
+            <div className="roomHeader"><h1 onClick={swapDropDown}>{room.name + ' ' + room.id}</h1></div>
             <div className="dropDown">{getDropdown()}</div>
         </>
     )

@@ -8,20 +8,19 @@
 }
 
 .Results {
-    background-color: chartreuse;
     padding-left: 5%;
     padding-right: 5%;
 }
 
 .dropDown {
-    background-color: coral;
+    background-color: #87abe6;
     padding-left: 2vw;
 }
 
-h1 {
+.roomHeader {
     font-size: larger;
     font-weight: bold;
-    background-color: blueviolet;
+    background-color: #968e00;
     padding-top: 1vh;
     padding-bottom: 1vh;
 }
