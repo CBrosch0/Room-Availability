@@ -12,3 +12,8 @@
     padding-left:5%;
     padding-right:5%;
   }
+
+  h1 {
+    font-size: larger;
+    font-weight: bold;
+  }

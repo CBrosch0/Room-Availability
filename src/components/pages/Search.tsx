@@ -5,8 +5,6 @@ import Room from '../search/Room.tsx'
 
 
 export default function Search() {
-    const [width, setWidth] = useState()
-
 
     return (
         <>
