@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import DatePicker from 'react-datepicker' // For date picking, you'll need to install react-datepicker
-
 import 'react-datepicker/dist/react-datepicker.css' // Import the styles for DatePicker
 
 // Define the schema for form validation using Zod
@@ -49,7 +48,7 @@ export default function RoomAvailabilityForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-full max-w-md mx-auto bg-gray-900 p-6 rounded-lg shadow-lg text-white grid grid-cols-1 gap-y-4"
+            className="w-full max-w-max min-w-96 mx-auto bg-gray-900 p-6 rounded-lg shadow-lg text-white grid grid-cols-2 gap-y-4 gap-x-8"
         >
             <ul className="grid grid-cols-1 gap-y-4">
                 <li>
@@ -118,6 +117,10 @@ export default function RoomAvailabilityForm() {
                         </label>
                     </div>
                 </li>
+            
+            </ul>
+
+            <ul>
 
                 <li>
                     <label htmlFor="date" className="block mb-1">

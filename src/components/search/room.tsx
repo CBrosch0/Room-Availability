@@ -125,7 +125,7 @@ export default function Room(room: roomList) {
                         title="Apply the filters"
                         type="submit"
                     >
-                        Check Availability
+                        Register
                     </button>
                 </form>
             </>
