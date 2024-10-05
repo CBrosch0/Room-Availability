@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import '@/assets/styes/search.css'
+import '@/assets/styles/search.css'
 import Map from '../components/search/Map.tsx'
 import Room from '../components/search/Room.tsx'
 import roomsJson from '../assets/roomLists/roomList1.json'

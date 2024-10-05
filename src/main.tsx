@@ -5,6 +5,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import Home from '@/pages/Home';
 import Search from '@/pages/Search';
 import Layout from '@/components/layout/Nav.tsx';
+import '@/assets/styles/index.css'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
