@@ -1,0 +1,22 @@
+{
+    "building": [
+        {
+            "width": 80,
+            "height": 60,
+            "x": 10,
+            "y": 20
+        }
+    ],
+    "rooms": [
+        {
+            "roomId": 15,
+            "roomName": "BA1 200",
+            "isAvailable": true,
+            "isOccupied": false,
+            "width": 15,
+            "height": 15,
+            "x": 20,
+            "y": 10
+        }
+    ]
+}
