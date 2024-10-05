@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Stage, Layer, Rect, Circle } from 'react-konva';
+import { Stage, Layer, Rect, Text } from 'react-konva';
 
 import floorplan from '../../assets/floorplans/layout1.json'
 
@@ -32,6 +32,7 @@ export default function Map(props: CanvasSize) {
                 </Layer>
                 <Layer>
                     <Rect width={floorplan.rooms[0].width / 100 * getWidth()} height={floorplan.rooms[0].height / 100 * getHeight()} x={floorplan.rooms[0].x / 100 * getWidth()} y={floorplan.rooms[0].y / 100 * getHeight()} fill="#2a7a1d" />
+                    <Text text={floorplan.rooms[0].roomName} width={floorplan.rooms[0].width / 100 * getWidth()} height={floorplan.rooms[0].height / 100 * getHeight()} x={floorplan.rooms[0].x / 100 * getWidth()} y={floorplan.rooms[0].y / 100 * getHeight()} fill="#black" />
                 </Layer>
             </Stage>
         </>
