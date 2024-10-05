@@ -30,14 +30,14 @@ function SiteBranding() {
             <img
                 alt="UCF Logo"
                 className="h-8 w-8 inline-block sm:h-12 sm:w-12"
-                src="https://logodix.com/logo/24794.png"
+                src="https://www.ucf.edu/brand/wp-content/blogs.dir/13/files/2016/07/UCF-tab-NoBleed_vert-KG-7406.png"
             />
             <span className="font-semibold inline-block text-white">
                 {screenWidth < 512
                     ? 'UCF KH Team'
                     : screenWidth < 1920
-                      ? 'FSU NFL Big Data Bowl Team'
-                      : 'University of Central Florida'}
+                      ? 'UCF Knight Hacks Team'
+                      : 'University of Central Florida Knight Hacks Team'}
             </span>
         </Anchor>
     )
@@ -46,8 +46,6 @@ function SiteBranding() {
 function DesktopMenu() {
     const menuItems = [
         ['Home', '/'],
-        ['About Us', '/about'],
-        ['Contact Us', '/contact'],
         ['Search', '/search'],
     ]
 
