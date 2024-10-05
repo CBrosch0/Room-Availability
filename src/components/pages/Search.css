@@ -1,12 +1,14 @@
-.wrapper {
+.pagebody {
     display: grid;
     grid-template-columns: 60vw auto;
   }
 
-  .box1 {
-    background-color: aquamarine;
+  .searchAndMap {
+    padding-left:3%
   }
 
-  .box2 {
+  .Results {
     background-color: chartreuse;
+    padding-left:5%;
+    padding-right:5%;
   }
