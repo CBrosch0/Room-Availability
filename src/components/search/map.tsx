@@ -24,15 +24,31 @@ export default function Map(props: CanvasSize) {
     return (
         <>
             <Stage width={getWidth()} height={getHeight()}>
-                <Layer>
+                <Layer name="background">
                     <Rect width={getWidth()} height={getHeight()} fill="#7d7d7d" />
                 </Layer>
-                <Layer>
-                    <Rect width={floorplan.building[0].width / 100 * getWidth()} height={floorplan.building[0].height / 100 * getHeight()} x={floorplan.building[0].x / 100 * getWidth()} y={floorplan.building[0].y / 100 * getHeight()} fill="#87abe6" />
+                <Layer name="building">
+                    {
+                        floorplan.building.map((section) => {
+
+                            return (<Rect width={section.width / 100 * getWidth()} height={section.height / 100 * getHeight()} x={section.x / 100 * getWidth()} y={section.y / 100 * getHeight()} fill="#87abe6" />)
+                        }
+                        )
+                    }
                 </Layer>
-                <Layer>
-                    <Rect width={floorplan.rooms[0].width / 100 * getWidth()} height={floorplan.rooms[0].height / 100 * getHeight()} x={floorplan.rooms[0].x / 100 * getWidth()} y={floorplan.rooms[0].y / 100 * getHeight()} fill="#2a7a1d" />
-                    <Text text={floorplan.rooms[0].roomName} width={floorplan.rooms[0].width / 100 * getWidth()} height={floorplan.rooms[0].height / 100 * getHeight()} x={floorplan.rooms[0].x / 100 * getWidth()} y={floorplan.rooms[0].y / 100 * getHeight()} fill="#black" />
+                <Layer name="rooms">
+                    {
+                        floorplan.rooms.map((room) => {
+
+                            return (
+                                <>
+                                    <Rect width={room.width / 100 * getWidth()} height={room.height / 100 * getHeight()} x={room.x / 100 * getWidth()} y={room.y / 100 * getHeight()} fill="#2a7a1d" />
+                                    <Text text={room.roomName} x={room.x / 100 * getWidth()} y={room.y / 100 * getHeight()} fill="#black" />
+                                </>
+                            )
+                        }
+                        )
+                    }
                 </Layer>
             </Stage>
         </>
