@@ -1,5 +1,13 @@
 package main
 
+import (
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+// API schema
+
 type Building struct {
 	Id     string `json:"id"`
 	Width  int    `json:"width"`
@@ -40,7 +48,7 @@ type SearchResponsePayload struct {
 }
 
 type LayoutRequestPayload struct {
-	LayoutId string `json:"layoutId"`
+	FacilityId string `json:"facilityId"`
 }
 
 type LayoutResponsePayload struct {
@@ -54,4 +62,38 @@ type ActivityRequestPayload struct {
 
 type ErrorResponse struct {
 	Err string `json:"err"`
+}
+
+// Database schema
+
+type RoomDocument struct {
+	Id                   primitive.ObjectID `bson:"_id"`
+	FacilityId           primitive.ObjectID `bson:"facilityId"`
+	Name                 string             `bson:"name"`
+	Seats                int                `bson:"seats"`
+	HasProjector         bool               `bson:"hasProjector"`
+	HasWhiteboard        bool               `bson:"hasWhiteboard"`
+	HasAudioAccomodation bool               `bson:"hasAudioAccomodation"`
+	HasVideoRecording    bool               `bson:"hasVideoVecording"`
+	LastActivity         time.Time          `bson:"lastActivity"`
+	Width                int                `bson:"width"`
+	Height               int                `bson:"height"`
+	X                    int                `bson:"x"`
+	Y                    int                `bson:"y"`
+}
+
+type ReservationDocument struct {
+	Id     primitive.ObjectID `bson:"_id"`
+	RoomId primitive.ObjectID `bson:"roomId"`
+	Start  time.Time          `bson:"start"`
+	End    time.Time          `bson:"end"`
+}
+
+type BuildingDocument struct {
+	Id         primitive.ObjectID `bson:"_id"`
+	FacilityId primitive.ObjectID `bson:"facilityId"`
+	Width      int                `bson:"width"`
+	Height     int                `bson:"height"`
+	X          int                `bson:"x"`
+	Y          int                `bson:"y"`
 }
