@@ -1,0 +1,27 @@
+.pagebody {
+  display: grid;
+  grid-template-columns: 60vw auto;
+}
+
+.searchAndMap {
+  padding-left:3%
+}
+
+.Results {
+  background-color: chartreuse;
+  padding-left:5%;
+  padding-right:5%;
+}
+
+.dropDown {
+  background-color: coral;
+  padding-left: 2vw;
+}
+
+h1 {
+  font-size: larger;
+  font-weight: bold;
+  background-color: blueviolet;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
