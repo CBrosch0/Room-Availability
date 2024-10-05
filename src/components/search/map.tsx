@@ -25,7 +25,7 @@ export default function Map(props: CanvasSize) {
         <>
             <Stage width={getWidth()} height={getHeight()}>
                 <Layer>
-                    <Rect width={getWidth()} height={getHeight()} fill="white" />
+                    <Rect width={getWidth()} height={getHeight()} fill="#7d7d7d" />
                 </Layer>
                 <Layer>
                     <Rect width={floorplan.building[0].width / 100 * getWidth()} height={floorplan.building[0].height / 100 * getHeight()} x={floorplan.building[0].x / 100 * getWidth()} y={floorplan.building[0].y / 100 * getHeight()} fill="#87abe6" />
