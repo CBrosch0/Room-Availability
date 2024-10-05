@@ -11,12 +11,32 @@
         {
             "roomId": 15,
             "roomName": "BA1 200",
-            "isAvailable": true,
+            "isAvailable": false,
             "isOccupied": false,
             "width": 15,
             "height": 15,
             "x": 20,
             "y": 10
+        },
+        {
+            "roomId": 15,
+            "roomName": "BA1 201",
+            "isAvailable": true,
+            "isOccupied": false,
+            "width": 15,
+            "height": 15,
+            "x": 70,
+            "y": 10
+        },
+        {
+            "roomId": 15,
+            "roomName": "BA1 203",
+            "isAvailable": true,
+            "isOccupied": true,
+            "width": 15,
+            "height": 15,
+            "x": 70,
+            "y": 75
         }
     ]
 }
