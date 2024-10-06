@@ -1,0 +1,13 @@
+.fullArea {
+    display: grid;
+    grid-template-columns: 50% auto;
+}
+
+.left {
+    padding-left: 3%;
+}
+
+.right {
+    padding-left: 5%;
+    padding-right: 5%;
+}

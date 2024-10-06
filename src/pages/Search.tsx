@@ -1,5 +1,5 @@
 import '@/styles/search.css'
-import Map from '@/components/search/Map'
+import Map from '@/components/search/map'
 import Room from '@/components/search/room'
 import roomsJson from '@/assets/roomLists/roomList1.json'
 import RoomAvailability from './RoomAvailability'
