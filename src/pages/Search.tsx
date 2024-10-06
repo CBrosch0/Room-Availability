@@ -3,7 +3,7 @@ import Map from '@/components/search/map'
 import Room from '@/components/search/room'
 import roomsJson from '@/assets/roomLists/roomList1.json'
 import RoomAvailability from './RoomAvailability'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -60,6 +60,15 @@ export default function Search() {
             return ("");
         }
     };
+
+    async function pageLoad() {
+
+        await getRooms();
+    }
+
+    useEffect(() => {
+        pageLoad();
+    }, [])
 
     const {
         register,
@@ -223,7 +232,7 @@ export default function Search() {
                             Check Availability
                         </button>
                     </form>
-                    <br/>
+                    <br />
                     <Map w={window.innerWidth * 0.55} />
                 </div>
                 <div className="Results">
