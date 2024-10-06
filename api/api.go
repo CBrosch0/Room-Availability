@@ -188,7 +188,7 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 										break
 									} else {
 										timeSinceActivity := time.Since(roomDoc.LastActivity)
-										isOccupied := timeSinceActivity.Minutes() < 5
+										isOccupied := timeSinceActivity.Seconds() < 10
 
 										roomsResponse[i] = Room{
 											Id:                   roomDoc.Id.Hex(),
