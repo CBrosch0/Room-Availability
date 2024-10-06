@@ -115,7 +115,7 @@ export default function Map(props: CanvasSize) {
                         return (
                             <>
                                 <Rect
-                                    key={room.roomId + 'R'}
+                                    key={room.id + 'R'}
                                     width={(room.width / 100) * getWidth()}
                                     height={(room.height / 100) * getHeight()}
                                     x={(room.x / 100) * getWidth()}
@@ -123,8 +123,8 @@ export default function Map(props: CanvasSize) {
                                     fill={color}
                                 />
                                 <Text
-                                    key={room.roomId + 'T'}
-                                    text={room.roomName + ' ' + status}
+                                    key={room.id + 'T'}
+                                    text={room.name + ' ' + status}
                                     x={(room.x / 100) * getWidth()}
                                     y={(room.y / 100) * getHeight()}
                                     fill="#black"

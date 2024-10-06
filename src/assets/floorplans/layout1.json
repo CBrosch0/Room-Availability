@@ -10,8 +10,8 @@
     ],
     "rooms": [
         {
-            "roomId": 15,
-            "roomName": "BA1 200",
+            "id": 15,
+            "name": "BA1 200",
             "isAvailable": false,
             "isOccupied": false,
             "width": 15,
@@ -20,8 +20,8 @@
             "y": 10
         },
         {
-            "roomId": 15,
-            "roomName": "BA1 201",
+            "id": 15,
+            "name": "BA1 201",
             "isAvailable": true,
             "isOccupied": false,
             "width": 15,
