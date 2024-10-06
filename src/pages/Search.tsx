@@ -37,6 +37,29 @@ export type roomList = {
 export default function Search() {
     let allRooms = roomsJson.rooms
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+    const [roomsList, setRoomsList] = useState(roomsJson.rooms)
+
+
+    async function getRooms() {
+        //event.preventDefault();
+        try {
+            // Jacob suggested hardcoding that when it wasn't working before
+            const response = await fetch("http://129.153.169.171/api/layout?facilityId=6701f103b5890dddc48b6774",
+                { method: 'GET', headers: { 'Content-Type': 'application/json' } });
+
+            const res = await response.json();
+            //console.log(res);
+            setRoomsList(res.rooms)
+            console.log(res.rooms)
+            console.log(allRooms)
+
+        } catch (e) {
+            console.log("error");
+            console.log(e);
+            console.error(e);
+            return ("");
+        }
+    };
 
     const {
         register,
