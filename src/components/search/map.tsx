@@ -14,6 +14,7 @@ export default function Map(props: CanvasSize) {
     const [reservedColor, setReservedColor] = useState('#bf0000')
     const [busyColor, setBusyColor] = useState('#bf8600')
     const [availableColor, setAvailableColor] = useState('#36bf00')
+    var plan = floorplan;
 
 
     async function getLayout() {
@@ -27,7 +28,7 @@ export default function Map(props: CanvasSize) {
 
         try {
             // Jacob suggested hardcoding that when it wasn't working before
-            const response = await fetch("http://129.153.169.171/api/layout?facilityId=6701f103b5890dddc48b6774",
+            const response = await fetch(pather("layout?facilityId=6701f103b5890dddc48b6774"),
                 { method: 'GET', headers: { 'Content-Type': 'application/json' } });
 
             const res = await response.json();
@@ -96,7 +97,7 @@ export default function Map(props: CanvasSize) {
                     })}
                 </Layer>
                 <Layer name="rooms">
-                    {floorplan.rooms.map((room) => {
+                    {plan.rooms.map((room) => {
                         let color = '#000000'
                         let status = 'unknown'
                         if (room.isAvailable && !room.isOccupied) {
