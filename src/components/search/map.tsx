@@ -14,7 +14,7 @@ export default function Map(props: CanvasSize) {
     const [reservedColor, setReservedColor] = useState('#bf0000')
     const [busyColor, setBusyColor] = useState('#bf8600')
     const [availableColor, setAvailableColor] = useState('#36bf00')
-    var plan = floorplan;
+    const [plan, setPlan] = useState(floorplan)
 
 
     async function getLayout() {
@@ -33,6 +33,7 @@ export default function Map(props: CanvasSize) {
 
             const res = await response.json();
             console.log(res);
+            setPlan(res)
 
         } catch (e) {
             console.log("error");
