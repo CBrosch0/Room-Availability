@@ -77,7 +77,7 @@ export default function Map(props: CanvasSize) {
                     />
                 </Layer>
                 <Layer name="building">
-                    {plan.building.map((section) => {
+                    {floorplan.building.map((section) => {
                         return (
                             <Rect
                                 key={section.id}
