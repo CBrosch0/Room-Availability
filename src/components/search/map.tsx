@@ -19,20 +19,13 @@ export default function Map(props: CanvasSize) {
 
     async function getLayout() {
         //event.preventDefault();
-        console.log("Actually ran");
-
-        const obj = {
-            facility_id: "6701f103b5890dddc48b6774"
-        };
-        const js = JSON.stringify(obj);
-
         try {
             // Jacob suggested hardcoding that when it wasn't working before
             const response = await fetch(pather("layout?facilityId=6701f103b5890dddc48b6774"),
                 { method: 'GET', headers: { 'Content-Type': 'application/json' } });
 
             const res = await response.json();
-            console.log(res);
+            //console.log(res);
             setPlan(res)
 
         } catch (e) {
@@ -84,10 +77,10 @@ export default function Map(props: CanvasSize) {
                     />
                 </Layer>
                 <Layer name="building">
-                    {floorplan.building.map((section) => {
+                    {plan.building.map((section) => {
                         return (
                             <Rect
-                                key={section.facilityId}
+                                key={section.id}
                                 width={(section.width / 100) * getWidth()}
                                 height={(section.height / 100) * getHeight()}
                                 x={(section.x / 100) * getWidth()}

@@ -17,12 +17,12 @@ export default function Footer() {
                     <SocialMediaLinks />
                     {/* Copyright notice */}
                     <p className="max-md:text-center text-base text-gray-600">
-                        {currentYear} &copy; &nbsp;
+                        {/*{currentYear} &copy; &nbsp;*/}
                         <Anchor
                             href="https://www.ucf.edu"
                             children="University of Central Florida"
                         />
-                        . All rights reserved.
+                        {/*. All rights reserved.*/}
                     </p>
                 </div>
             </div>
