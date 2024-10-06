@@ -15,7 +15,7 @@ const roomAvailabilitySchema = z.object({
 type FormData = z.infer<typeof roomAvailabilitySchema>
 
 export default function Room(room: roomList) {
-    const [droppedDown, setDroppedDown] = useState(true)
+    const [droppedDown, setDroppedDown] = useState(false)
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const {
         register,
