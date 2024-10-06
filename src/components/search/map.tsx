@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Stage, Layer, Rect, Text } from 'react-konva'
-
+import pather from '../../Path.tsx'
 import floorplan from '../../assets/floorplans/layout1.json'
 
 type CanvasSize = {
@@ -14,6 +14,42 @@ export default function Map(props: CanvasSize) {
     const [reservedColor, setReservedColor] = useState('#bf0000')
     const [busyColor, setBusyColor] = useState('#bf8600')
     const [availableColor, setAvailableColor] = useState('#36bf00')
+
+
+    async function getLayout() {
+        //event.preventDefault();
+        console.log("Actually ran");
+
+        const obj = {
+            facility_id: "6701f103b5890dddc48b6774"
+        };
+        const js = JSON.stringify(obj);
+
+        try {
+            // Jacob suggested hardcoding that when it wasn't working before
+            const response = await fetch("http://129.153.169.171/layout?facilityId=6701f103b5890dddc48b6774",
+                { method: 'GET', headers: { 'Content-Type': 'application/json' } });
+
+            const res = await response.json();
+            console.log(res);
+
+        } catch (e) {
+            console.log("error");
+            console.log(e);
+            console.error(e);
+            return ("");
+        }
+    };
+
+    async function pageLoad() {
+
+        await getLayout();
+    }
+
+    useEffect(() => {
+        pageLoad();
+    }, [])
+
 
     function getWidth() {
         return width
