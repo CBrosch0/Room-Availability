@@ -25,7 +25,7 @@ export default function Map(props: CanvasSize) {
                 { method: 'GET', headers: { 'Content-Type': 'application/json' } });
 
             const res = await response.json();
-            //console.log(res);
+            console.log(res);
             setPlan(res)
 
         } catch (e) {
