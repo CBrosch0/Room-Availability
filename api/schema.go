@@ -33,14 +33,14 @@ type Room struct {
 }
 
 type SearchRequestPayload struct {
-	Seats                int    `json:"seats"`
-	HasProjector         bool   `json:"hasProjector"`
-	HasWhiteboard        bool   `json:"hasWhiteboard"`
-	HasAudioAccomodation bool   `json:"hasAudioAccomodation"`
-	HasVideoRecording    bool   `json:"hasVideoRecording"`
-	ReservationStart     string `json:"reservationStart"`
-	Reservation_End      string `json:"reservationEnd"`
-	IsOccupied           bool   `json:"isOccupied"`
+	Seats                int    `form:"seats"`
+	HasProjector         bool   `form:"hasProjector"`
+	HasWhiteboard        bool   `form:"hasWhiteboard"`
+	HasAudioAccomodation bool   `form:"hasAudioAccomodation"`
+	HasVideoRecording    bool   `form:"hasVideoRecording"`
+	ReservationStart     string `form:"reservationStart"`
+	ReservationEnd       string `form:"reservationEnd"`
+	IsOccupied           bool   `form:"isOccupied"`
 }
 
 type SearchResponsePayload struct {
@@ -48,7 +48,7 @@ type SearchResponsePayload struct {
 }
 
 type LayoutRequestPayload struct {
-	FacilityId string `json:"facilityId"`
+	FacilityId string `form:"facilityId"`
 }
 
 type LayoutResponsePayload struct {
@@ -57,7 +57,7 @@ type LayoutResponsePayload struct {
 }
 
 type ActivityRequestPayload struct {
-	RoomId string `json:"roomId"`
+	RoomId string `form:"roomId"`
 }
 
 type ErrorResponse struct {

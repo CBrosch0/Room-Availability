@@ -57,23 +57,28 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 	})
 
 	// Search
-	r.GET("/search", func(ctx *gin.Context) {
+	/*r.GET("/search", func(ctx *gin.Context) {
 		var request SearchRequestPayload
 		if err := ctx.BindJSON(&request); err != nil {
 			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid JSON"})
 		} else {
-			ctx.JSON(http.StatusOK, request)
+			if start, err := time.Parse(time.RFC3339, request.ReservationStart); err != nil {
+				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid start time"})
+			} else if end, err := time.Parse(time.RFC3339, request.ReservationEnd); err != nil {
+				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid end time"}) {
+
+			}
 		}
-	})
+	})*/
 
 	// Room layout
 	r.GET("/layout", func(ctx *gin.Context) {
 		var request LayoutRequestPayload
-		if err := ctx.BindJSON(&request); err != nil {
-			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid JSON"})
+		if err := ctx.ShouldBind(&request); err != nil {
+			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid request"})
 		} else {
 			if facilityId, err := primitive.ObjectIDFromHex(request.FacilityId); err != nil {
-				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid layoutId"})
+				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid facilityId"})
 			} else {
 				buildings := dbc.Database("demo").Collection("buildings")
 				filter := bson.D{{"facilityId", facilityId}}
