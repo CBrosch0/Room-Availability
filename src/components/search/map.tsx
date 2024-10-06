@@ -21,7 +21,7 @@ export default function Map(props: CanvasSize) {
         //event.preventDefault();
         try {
             // Jacob suggested hardcoding that when it wasn't working before
-            const response = await fetch(pather("layout?facilityId=6701f103b5890dddc48b6774"),
+            const response = await fetch("http://129.153.169.171/api/layout?facilityId=6701f103b5890dddc48b6774",
                 { method: 'GET', headers: { 'Content-Type': 'application/json' } });
 
             const res = await response.json();
