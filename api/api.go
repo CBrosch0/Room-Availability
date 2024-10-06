@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -65,7 +66,8 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 			if start, err := time.Parse(time.RFC3339, request.ReservationStart); err != nil {
 				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid start time"})
 			} else if end, err := time.Parse(time.RFC3339, request.ReservationEnd); err != nil {
-				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid end time"}) {
+				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid end time"})
+			} else {
 
 			}
 		}
@@ -183,6 +185,16 @@ func main() {
 
 	// Gin setup
 	r := setupRouter(client)
+
+	/*r.Use(cors.New(cors.Config{
+	    AllowOrigins:     []string{"https://foo.com"},
+	    AllowMethods:     []string{"PUT", "PATCH"},
+	    AllowHeaders:     []string{"Origin"},
+	    ExposeHeaders:    []string{"Content-Length"},
+	    MaxAge: 12 * time.Hour,
+	}))*/
+
+	r.Use(cors.Default())
 
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
