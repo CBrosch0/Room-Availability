@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 interface AnchorProps {
     children: React.ReactNode
     className?: string
@@ -7,26 +9,23 @@ interface AnchorProps {
     title?: string
 }
 
-const defaultRel = 'noopener noreferrer'
-const defaultTarget = '_blank'
-
 export default function Anchor({
     children,
     className,
     href,
-    rel = defaultRel,
-    target = defaultTarget,
+    rel,
+    target,
     title,
 }: AnchorProps) {
     return (
-        <a
+        <Link
             className={className}
-            href={href}
+            to={href}
             rel={rel}
             target={target}
             title={title}
         >
             {children}
-        </a>
+        </Link>
     )
 }

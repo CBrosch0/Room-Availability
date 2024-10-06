@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Outlet, Link } from 'react-router-dom'
-import MobileMenu from '@/components/layout/MobileMenu'
+import MobileMenu from '@/components/layouts/MobileMenu'
 import Anchor from '@/components/ui/Anchor'
 
 const SCROLL_THRESHOLD = 10
@@ -82,25 +82,20 @@ export default function Nav() {
     }, [])
 
     return (
-        <div>
-            <nav
-                className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${
-                    top
-                        ? ''
-                        : 'border-solid border-0 border-b border-gray-800 bg-black backdrop-blur-sm'
-                }`}
-            >
-                <div className="max-w-screen-xl mx-auto px-6">
-                    <div className="flex items-center justify-between h-16 md:h-20">
-                        <SiteBranding />
-                        <DesktopMenu />
-                        <MobileMenu />
-                    </div>
+        <nav
+            className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${
+                top
+                    ? ''
+                    : 'border-solid border-0 border-b border-gray-800 bg-black backdrop-blur-sm'
+            }`}
+        >
+            <div className="max-w-screen-xl mx-auto px-6">
+                <div className="flex items-center justify-between h-16 md:h-20">
+                    <SiteBranding />
+                    <DesktopMenu />
+                    <MobileMenu />
                 </div>
-            </nav>
-            <main className="p-4">
-                <Outlet />
-            </main>
-        </div>
+            </div>
+        </nav>
     )
 }

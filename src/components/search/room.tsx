@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { roomList } from '../../pages/Search.tsx'
-import '../../assets/styles/search.css'
+import '@/styles/search.css'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -38,9 +38,6 @@ export default function Room(room: roomList) {
         setSelectedDate(date)
         setValue('date', date ? date.toISOString() : '')
     }
-
-
-
 
     function getStatus() {
         if (room.reserved && !room.occupied) {
@@ -132,11 +129,7 @@ export default function Room(room: roomList) {
         )
     }
 
-    function reserveRoom() {
-
-    }
-
-
+    function reserveRoom() {}
 
     function getDropdown() {
         if (getDroppedDown()) {
@@ -166,7 +159,9 @@ export default function Room(room: roomList) {
 
     return (
         <>
-            <div className="roomHeader"><h1 onClick={swapDropDown}>{room.name + ' ' + room.id}</h1></div>
+            <div className="roomHeader">
+                <h1 onClick={swapDropDown}>{room.name + ' ' + room.id}</h1>
+            </div>
             <div className="dropDown">{getDropdown()}</div>
         </>
     )

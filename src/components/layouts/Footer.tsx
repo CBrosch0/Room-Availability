@@ -1,9 +1,6 @@
-'use client'
-
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
-import Anchor from '../ui/Anchor'
-import LinkList from '../ui/LinkList'
-import SocialMediaLink from '../ui/SocialMediaLink'
+import Anchor from '@/components/ui/Anchor'
+import SocialMediaLink from '@/components/ui/SocialLink'
 
 // Footer Component
 export default function Footer() {
@@ -22,18 +19,8 @@ export default function Footer() {
                     <p className="max-md:text-center text-base text-gray-600">
                         {currentYear} &copy; &nbsp;
                         <Anchor
-                            href="https://www.famu.edu"
-                            children="Florida A&M University"
-                        />
-                        -
-                        <Anchor
-                            href="https://www.fsu.edu"
-                            children="Florida State University"
-                        />
-                        &nbsp;
-                        <Anchor
-                            href="https://eng.famu.fsu.edu"
-                            children="College of Engineering"
+                            href="https://www.ucf.edu"
+                            children="University of Central Florida"
                         />
                         . All rights reserved.
                     </p>
@@ -49,22 +36,22 @@ function SocialMediaLinks() {
     const socialIcons = [
         {
             platform: 'Facebook',
-            href: 'https://www.facebook.com/',
+            href: 'https://www.facebook.com/UCF',
             icon: FaFacebook,
         },
         {
             platform: 'Instagram',
-            href: 'https://www.instagram.com/',
+            href: 'https://www.instagram.com/ucf.edu/',
             icon: FaInstagram,
         },
         {
             platform: 'LinkedIn',
-            href: 'https://www.linkedin.com/school/florida-state-university/',
+            href: 'https://www.linkedin.com/school/university-of-central-florida/',
             icon: FaLinkedin,
         },
         {
-            platform: 'Twitter',
-            href: 'https://twitter.com/FloridaState',
+            platform: 'X',
+            href: 'https://twitter.com/UCF',
             icon: FaTwitter,
         },
     ]

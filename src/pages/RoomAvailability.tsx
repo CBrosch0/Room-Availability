@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import DatePicker from 'react-datepicker' // For date picking, you'll need to install react-datepicker
-import 'react-datepicker/dist/react-datepicker.css' // Import the styles for DatePicker
-
+import Calendar from '@/components/ui/Calendar'
 // Define the schema for form validation using Zod
 const roomAvailabilitySchema = z.object({
     seatingCapacity: z.number().min(1, 'Seating capacity must be at least 1'),
@@ -117,20 +115,16 @@ export default function RoomAvailabilityForm() {
                         </label>
                     </div>
                 </li>
-            
             </ul>
 
             <ul>
-
                 <li>
                     <label htmlFor="date" className="block mb-1">
                         Date
                     </label>
-                    <DatePicker
-                        selected={selectedDate}
+                    <Calendar
+                        selectedDate={selectedDate}
                         onChange={handleDateChange}
-                        dateFormat="yyyy/MM/dd"
-                        className="bg-gray-800 outline-none p-3 rounded-md w-full"
                     />
                     {errors.date && (
                         <p className="mt-1 text-sm text-red-500">

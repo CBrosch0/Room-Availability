@@ -1,5 +1,5 @@
-import '@/assets/styles/search.css'
-import Map from '@/components/search/map'
+import '@/styles/search.css'
+import Map from '@/components/search/Map'
 import Room from '@/components/search/room'
 import roomsJson from '@/assets/roomLists/roomList1.json'
 import RoomAvailability from './RoomAvailability'
@@ -27,7 +27,7 @@ export default function Search() {
 
             <div className="pagebody">
                 <div className="searchAndMap">
-                    <RoomAvailability/>
+                    <RoomAvailability />
                     <Map w={window.innerWidth * 0.55} />
                 </div>
                 <div className="Results">

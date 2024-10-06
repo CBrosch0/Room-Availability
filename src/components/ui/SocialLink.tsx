@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom'
 import { IconType } from 'react-icons'
 
-interface SocialMediaLinkProps {
+interface SocialLinkProps {
     className?: string
     href: string
     icon: IconType
@@ -10,27 +11,24 @@ interface SocialMediaLinkProps {
     title?: string
 }
 
-const defaultRel = 'noopener noreferrer'
-const defaultTarget = '_blank'
-
-export default function SocialMediaLink({
+export default function SocialLink({
     className = 'justify-center text-gray-400 hover:text-white transition duration-200 ease-in-out',
     href,
     icon: Icon,
     platform,
-    rel = defaultRel,
-    target = defaultTarget,
+    rel = 'noopener noreferrer',
+    target = '_blank',
     title = `Visit ${platform}.com`,
-}: SocialMediaLinkProps) {
+}: SocialLinkProps) {
     return (
-        <a
+        <Link
             className={className}
-            href={href}
+            to={href}
             rel={rel}
             target={target}
             title={title}
         >
             <Icon aria-hidden={true} />
-        </a>
+        </Link>
     )
 }
