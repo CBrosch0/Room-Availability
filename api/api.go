@@ -18,7 +18,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func isRoomAvailable(roomId primitive.ObjectID, dbc *mongo.Client) (bool, error) {
+func isRoomAvailableNow(roomId primitive.ObjectID, dbc *mongo.Client) (bool, error) {
 	reservations := dbc.Database("demo").Collection("reservations")
 	filter := bson.D{{"$and", bson.A{
 		bson.D{{"roomId", roomId}},
@@ -41,6 +41,10 @@ func isRoomAvailable(roomId primitive.ObjectID, dbc *mongo.Client) (bool, error)
 		}
 	}
 }
+
+/*func isRoomAvailableRange(roomId primitive.ObjectID, start time.Time, end time.Time, dbc *mongo.Client) (bool, error) {
+
+}*/
 
 func setupRouter(dbc *mongo.Client) *gin.Engine {
 	// Disable Console Color
@@ -68,10 +72,74 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 			} else if end, err := time.Parse(time.RFC3339, request.ReservationEnd); err != nil {
 				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid end time"})
 			} else {
-
+				reservations := dbc.Database("demo").Collection("reservations")
+				filter := bson.D{{
+					"$and",
+					bson.A{
+						bson.D{{"roomId", reqroomId}},
+						bson.D{{"h"}},
+						bson.D{{
+							"$or",
+							bson.A{
+								bson.D{{
+									"$and",
+									bson.A{
+										bson.D{{"end", bson.D{{"$lte", end}}}},
+										bson.D{{"end", bson.D{{"$gte", start}}}},
+									},
+								}},
+								bson.D{{
+									"$and",
+									bson.A{
+										bson.D{{"start", bson.D{{"$lte", end}}}},
+										bson.D{{"start", bson.D{{"$gte", start}}}},
+									},
+								}},
+							},
+						}},
+					},
+				}}
+				if cursor, err := reservations.Find(context.TODO(), filter); err != nil {
+					return false, err
+				} else {
+					var results []ReservationDocument
+					if err = cursor.All(context.TODO(), &results); err != nil {
+						return false, err
+					} else {
+						if len(results) == 0 {
+							return true, nil
+						} else {
+							return false, nil
+						}
+					}
+				}
 			}
 		}
 	})*/
+
+	// Motion activity
+
+	r.POST("/api/activity", func(ctx *gin.Context) {
+		var request ActivityRequestPayload
+		if err := ctx.ShouldBind(&request); err != nil {
+			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid request"})
+		} else {
+			if roomId, err := primitive.ObjectIDFromHex(request.RoomId); err != nil {
+				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid roomId"})
+			} else {
+				rooms := dbc.Database("demo").Collection("rooms")
+				filter := bson.D{{"_id", roomId}}
+				update := bson.D{{"$set", bson.D{{"lastActivity", time.Now().UTC()}}}}
+
+				res := rooms.FindOneAndUpdate(context.Background(), filter, update)
+				if res.Err() != nil {
+					ctx.JSON(http.StatusInternalServerError, ErrorResponse{res.Err().Error()})
+				} else {
+					ctx.Status(http.StatusOK)
+				}
+			}
+		}
+	})
 
 	// Room layout
 	r.GET("/api/layout", func(ctx *gin.Context) {
@@ -115,7 +183,7 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 								for i := range roomsResponse {
 									roomDoc := roomDocuments[i]
 
-									if isAvailable, err := isRoomAvailable(roomDoc.Id, dbc); err != nil {
+									if isAvailable, err := isRoomAvailableNow(roomDoc.Id, dbc); err != nil {
 										ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error checking room availability"})
 										break
 									} else {
