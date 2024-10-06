@@ -48,7 +48,7 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 	r := gin.Default()
 
 	// Ping test
-	r.GET("/ping", func(ctx *gin.Context) {
+	r.GET("/api/ping", func(ctx *gin.Context) {
 		// Send a ping to confirm a successful connection
 		if err := dbc.Database("admin").RunCommand(context.TODO(), bson.D{{Key: "ping", Value: 1}}).Err(); err != nil {
 			ctx.JSON(http.StatusInternalServerError, ErrorResponse{"DB connection failed"})
@@ -58,7 +58,7 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 	})
 
 	// Search
-	/*r.GET("/search", func(ctx *gin.Context) {
+	/*r.GET("/api/search", func(ctx *gin.Context) {
 		var request SearchRequestPayload
 		if err := ctx.BindJSON(&request); err != nil {
 			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid JSON"})
@@ -74,7 +74,7 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 	})*/
 
 	// Room layout
-	r.GET("/layout", func(ctx *gin.Context) {
+	r.GET("/api/layout", func(ctx *gin.Context) {
 		var request LayoutRequestPayload
 		if err := ctx.ShouldBind(&request); err != nil {
 			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid request"})
