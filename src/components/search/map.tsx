@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Stage, Layer, Rect, Text } from 'react-konva'
-import pather from '../../Path.tsx'
+import pather from '../../path.tsx'
 import floorplan from '../../assets/floorplans/layout1.json'
 
 type CanvasSize = {
