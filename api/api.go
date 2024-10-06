@@ -186,15 +186,11 @@ func main() {
 	// Gin setup
 	r := setupRouter(client)
 
-	/*r.Use(cors.New(cors.Config{
-	    AllowOrigins:     []string{"https://foo.com"},
-	    AllowMethods:     []string{"PUT", "PATCH"},
-	    AllowHeaders:     []string{"Origin"},
-	    ExposeHeaders:    []string{"Content-Length"},
-	    MaxAge: 12 * time.Hour,
-	}))*/
-
-	r.Use(cors.Default())
+	r.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"GET", "POST"},
+		MaxAge:       12 * time.Hour,
+	}))
 
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
