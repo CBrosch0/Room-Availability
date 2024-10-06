@@ -44,7 +44,7 @@ const teamMembers: TeamMemberProps[] = [
   {
     id: 2,
     name: 'Calvin Brosch',
-    role: 'Backend',
+    role: 'Back End',
     image:
       '/src/assets/images/Calvin_Brosch.jpg',
     socialLinks: [
@@ -87,61 +87,58 @@ const teamMembers: TeamMemberProps[] = [
 
 export default function TeamMembers() {
   return (
-    <section className="relative">
-      {/* Main content container */}
+    <section className="relative bg-gray-100 py-12 md:py-20">
       <div className="max-w-screen-xl mx-auto px-6">
-        {/* Responsive vertical padding container */}
-        <div className="py-12 md:py-20">
-          {/* Section heading */}
-          <Header
-            heading="Our Team"
-            headingLevel={2}
-            subtext="Meet the people behind this project!"
-          />
-          {/* Section content */}
-          <Mapper<TeamMemberProps>
-            data={teamMembers}
-            renderItem={(member) => (
-              <li className="text-center text-gray-400" key={member.id}>
-                <img
-                  alt={`${member.name}'s profile picture`}
-                  className="mx-auto mb-4 w-36 h-36 rounded-full"
-                  src={member.image}
-                />
-                <div>
-                  <h3 className="font-semibold sm:text-lg text-base text-white">
-                    {member.name}
-                  </h3>
-                  {member.role && (
-                    <p className="text-base text-gray-400">{member.role}</p>
-                  )}
-                  {member.bio && (
-                    <p className="text-base text-gray-400">{member.bio}</p>
-                  )}
-                </div>
-                {member.socialLinks && (
-                  <ul className="flex justify-center mt-4 space-x-4">
-                    {member.socialLinks.map((link, index) => (
-                      <li key={index}>
-                        <SocialLink
-                          href={link.href}
-                          icon={link.icon}
-                          platform={link.platform}
-                          className={link.className}
-                        />
-                      </li>
-                    ))}
-                  </ul>
+        <Header
+          heading="Our Team"
+          headingLevel={2}
+          subtext="Meet the people behind this project!"
+        />
+        <Mapper<TeamMemberProps>
+          data={teamMembers}
+          renderItem={(member) => (
+            <li
+              className="text-center text-gray-400 bg-white rounded-lg shadow-md p-6"
+              key={member.id}
+            >
+              <img
+                alt={`${member.name}'s profile picture`}
+                className="mx-auto mb-4 w-36 h-36 rounded-full"
+                src={member.image}
+              />
+              <div>
+                <h3 className="font-semibold sm:text-lg text-base text-gray-900">
+                  {member.name}
+                </h3>
+                {member.role && (
+                  <p className="text-base text-gray-400">{member.role}</p>
                 )}
-              </li>
-            )}
-            WrapperElement="ul"
-            wrapperProps={{
-              className:
-                'grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
-            }}
-          />
-        </div>
+                {member.bio && (
+                  <p className="text-base text-gray-400">{member.bio}</p>
+                )}
+              </div>
+              {member.socialLinks && (
+                <ul className="flex justify-center mt-4 space-x-4">
+                  {member.socialLinks.map((link, index) => (
+                    <li key={index}>
+                      <SocialLink
+                        href={link.href}
+                        icon={link.icon}
+                        platform={link.platform}
+                        className={link.className}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          )}
+          WrapperElement="ul"
+          wrapperProps={{
+            className:
+              'grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+          }}
+        />
       </div>
     </section>
   )

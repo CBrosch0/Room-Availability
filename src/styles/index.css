@@ -21,17 +21,6 @@
   padding: 0;
 }
 
-h1,
-h2 {
-  background: linear-gradient(180deg, #fff, #c1c1c1);
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-}
-
-h3 {
-  color: white;
-}
-
 abbr[title] {
   border-bottom: none !important;
   cursor: inherit !important;
