@@ -32,7 +32,7 @@ func isRoomAvailable(roomId primitive.ObjectID, dbc *mongo.Client) (bool, error)
 		if err = cursor.All(context.TODO(), &results); err != nil {
 			return false, err
 		} else {
-			if len(results) != 0 {
+			if len(results) == 0 {
 				return true, nil
 			} else {
 				return false, nil
@@ -72,11 +72,11 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 		if err := ctx.BindJSON(&request); err != nil {
 			ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid JSON"})
 		} else {
-			if request.FacilityId == "" {
-				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Empty or missing layoutId"})
+			if facilityId, err := primitive.ObjectIDFromHex(request.FacilityId); err != nil {
+				ctx.JSON(http.StatusBadRequest, ErrorResponse{"Invalid layoutId"})
 			} else {
 				buildings := dbc.Database("demo").Collection("buildings")
-				filter := bson.D{{"facilityId", request.FacilityId}}
+				filter := bson.D{{"facilityId", facilityId}}
 				if cursor, err := buildings.Find(context.TODO(), filter); err != nil {
 					ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error searching building DB"})
 				} else {
@@ -85,7 +85,7 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 						ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error collecting building search results"})
 					} else {
 						rooms := dbc.Database("demo").Collection("rooms")
-						filter := bson.D{{"facilityId", request.FacilityId}}
+						filter := bson.D{{"facilityId", facilityId}}
 						if cursor, err := rooms.Find(context.TODO(), filter); err != nil {
 							ctx.JSON(http.StatusInternalServerError, ErrorResponse{"Error searching room DB"})
 						} else {
@@ -116,17 +116,24 @@ func setupRouter(dbc *mongo.Client) *gin.Engine {
 										isOccupied := timeSinceActivity.Minutes() < 5
 
 										roomsResponse[i] = Room{
-											Id:          roomDoc.Id.Hex(),
-											Name:        roomDoc.Name,
-											IsAvailable: isAvailable,
-											IsOccupied:  isOccupied,
-											Width:       roomDoc.Width,
-											Height:      roomDoc.Height,
-											X:           roomDoc.X,
-											Y:           roomDoc.Y,
+											Id:                   roomDoc.Id.Hex(),
+											Name:                 roomDoc.Name,
+											IsAvailable:          isAvailable,
+											IsOccupied:           isOccupied,
+											Width:                roomDoc.Width,
+											Height:               roomDoc.Height,
+											X:                    roomDoc.X,
+											Y:                    roomDoc.Y,
+											Seats:                roomDoc.Seats,
+											HasProjector:         roomDoc.HasProjector,
+											HasWhiteboard:        roomDoc.HasWhiteboard,
+											HasAudioAccomodation: roomDoc.HasAudioAccomodation,
+											HasVideoRecording:    roomDoc.HasVideoRecording,
 										}
 									}
 								}
+
+								ctx.JSON(http.StatusOK, LayoutResponsePayload{buildingsResponse, roomsResponse})
 							}
 						}
 					}
