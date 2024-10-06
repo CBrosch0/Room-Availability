@@ -236,17 +236,17 @@ export default function Search() {
                     <Map w={window.innerWidth * 0.55} />
                 </div>
                 <div className="Results">
-                    {allRooms.map((theRoom: any) => {
+                    {roomsList.map((theRoom: any) => {
                         return (
                             <>
                                 <Room
                                     name={theRoom.name}
                                     id={theRoom.id}
                                     seats={theRoom.seats}
-                                    projector={theRoom.projector}
-                                    whiteboard={theRoom.whiteboard}
-                                    audio={theRoom.audio}
-                                    video={theRoom.video}
+                                    projector={theRoom.hasProjector}
+                                    whiteboard={theRoom.hasWhiteboard}
+                                    audio={theRoom.hasAudioAccomodation}
+                                    video={theRoom.hasVideoVectoring}
                                     available={theRoom.isAvailable}
                                     occupied={theRoom.isOccupied}
                                 />
