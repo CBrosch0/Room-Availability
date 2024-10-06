@@ -236,7 +236,7 @@ export default function Search() {
                     <Map w={window.innerWidth * 0.55} />
                 </div>
                 <div className="Results">
-                    {roomsList.map((theRoom: any) => {
+                    {allRooms.map((theRoom: any) => {
                         return (
                             <>
                                 <Room

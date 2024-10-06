@@ -160,7 +160,7 @@ export default function Room(room: roomList) {
     return (
         <>
             <div className="roomHeader">
-                <h1 onClick={swapDropDown}>{room.name + ' ' + room.id}</h1>
+                <h1 onClick={swapDropDown}>{room.name}</h1>
             </div>
             <div className="dropDown">{getDropdown()}</div>
         </>
