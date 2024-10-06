@@ -40,9 +40,9 @@ export default function Room(room: roomList) {
     }
 
     function getStatus() {
-        if (room.reserved && !room.occupied) {
+        if (room.available && !room.occupied) {
             return <p>Available</p>
-        } else if (!room.reserved) {
+        } else if (!room.available) {
             return <p>Reserved</p>
         } else {
             return <p>Busy</p>

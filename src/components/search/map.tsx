@@ -73,7 +73,7 @@ export default function Map(props: CanvasSize) {
                     <Rect
                         width={getWidth()}
                         height={getHeight()}
-                        fill="#7d7d7d"
+                        fill="#6C7280"
                     />
                 </Layer>
                 <Layer name="building">

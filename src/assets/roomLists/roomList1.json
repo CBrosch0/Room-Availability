@@ -8,8 +8,8 @@
             "whiteboard": false,
             "audio": true,
             "video": false,
-            "reserved": false,
-            "occupied": true
+            "isAvailable": false,
+            "isOccupied": true
         },
         {
             "name": "Room2",
@@ -19,8 +19,8 @@
             "whiteboard": true,
             "audio": true,
             "video": false,
-            "reserved": true,
-            "occupied": true
+            "isAvailable": true,
+            "isOccupied": true
         }
     ]
 }
