@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Outlet, Link } from 'react-router-dom'
+import { NavLink } from 'react-router'
 import MobileMenu from '@/components/layouts/MobileMenu'
 import Anchor from '@/components/ui/Anchor'
 
@@ -53,14 +53,14 @@ function DesktopMenu() {
         <ul className="gap-6 justify-end flex-wrap items-center hidden md:flex md:grow">
             {menuItems.map(([anchorText, hyperlink]) => (
                 <li key={hyperlink}>
-                    <Link
+                    <NavLink
                         to={hyperlink}
                         className={
                             'font-medium text-gray-400 hover:text-white transition duration-300 ease-in-out'
                         }
                     >
                         {anchorText}
-                    </Link>
+                    </NavLink>
                 </li>
             ))}
         </ul>

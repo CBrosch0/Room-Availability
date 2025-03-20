@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
-import { useLocation } from 'react-router-dom' // Use react-router or any routing solution
+import { useLocation, NavLink } from 'react-router'
 import clsx from 'clsx'
 
 export default function MobileMenu() {
@@ -86,7 +86,7 @@ export default function MobileMenu() {
                             ['Project', '/project'],
                         ].map(([anchorText, hyperlink]) => (
                             <li key={hyperlink}>
-                                <a
+                                <NavLink
                                     href={hyperlink}
                                     className={clsx(
                                         'font-medium text-gray-400 hover:text-white transition duration-300 ease-in-out',
@@ -98,7 +98,7 @@ export default function MobileMenu() {
                                     onClick={() => setMobileNavOpen(false)}
                                 >
                                     {anchorText}
-                                </a>
+                                </NavLink>
                             </li>
                         ))}
                     </ul>

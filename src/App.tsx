@@ -1,19 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router'
 import Layout from '@/components/layouts/Layout'
 import Home from '@/pages/Home'
 import Search from '@/pages/Search'
 
-const App: React.FC = () => {
+export default function App() {
     return (
-        <Router>
-            <Layout>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/search" element={<Search />} />
-                </Routes>
-            </Layout>
-        </Router>
+        <Routes>
+            <Route element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="search" element={<Search />} />
+            </Route>
+        </Routes>
     )
 }
-
-export default App

@@ -1,5 +1,4 @@
-// Filters.tsx
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 interface FiltersProps {
     onFilterChange: (filters: string[]) => void
